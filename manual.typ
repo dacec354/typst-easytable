@@ -1,4 +1,3 @@
-#import "@preview/tidy:0.2.0"
 #import "src/lib.typ": easytable, elem
 #import elem: *
 
@@ -34,7 +33,7 @@
 #align(center)[
   #text(size: 2em, [Typst-Easytable Package])
 
-  version: 0.1.0
+  version: 0.2.0
 
   #datetime.today().display()
 ]
@@ -57,7 +56,7 @@
 = Usage
 
 ```typst
-#import "@preview/easytable:0.1.0": easytable, elem
+#import "@preview/easytable:0.2.0": easytable, elem
 ```
 
 == A Simple Table

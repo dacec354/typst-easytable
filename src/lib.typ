@@ -1,8 +1,6 @@
-#import "@preview/tablex:0.0.8": cellx, gridx, hlinex, vlinex
-
 #import "./elem.typ"
 
-#let _easytable_processor(n_columns, columns, operations, tablex_extra_args: (:)) = {
+#let _easytable_processor(n_columns, columns, operations, grid_extra_args: (:)) = {
   let data = ()
   let row_idx = 0
   let layout_func = ((c) => c,) * n_columns
@@ -28,7 +26,7 @@
         let cell_args = if _style == none { () } else {
           _style(x: col_idx, y: row_idx)
         }
-        data.push(cellx(c, ..cell_args))
+        data.push(grid.cell(c, ..cell_args))
       }
       row_idx += 1
     }
@@ -43,15 +41,15 @@
     }
 
     if op._kind == "easytable.push_hline" {
-      data.push(hlinex(..op.at("args", default: ())))
+      data.push(grid.hline(..op.at("args", default: ())))
     }
 
     if op._kind == "easytable.push_vline" {
-      data.push(vlinex(..op.at("args", default: ())))
+      data.push(grid.vline(..op.at("args", default: ())))
     }
   }
 
-  gridx(columns: columns, ..tablex_extra_args, ..data)
+  grid(columns: columns, inset: 5pt, ..grid_extra_args, ..data)
 }
 
 #let hline_tb(operations, stroke: 0.8pt) = {
@@ -72,11 +70,11 @@
   )
 }
 
-/// テーブルを作成する。
+/// Creates a table.
 ///
-/// - tablex_extra_args (dict, (:)): tablex 生成時に `tablex` にわたすキーワード引数。
-/// - body (array, (:)): テーブルのデータやレイアウト設定など。
-#let easytable(decoration: hline_tb, tablex_extra_args: (:), body) = {
+/// - grid_extra_args (dict, (:)): keyword arguments forwarded to `grid`.
+/// - body (array, (:)): table data and layout settings.
+#let easytable(decoration: hline_tb, grid_extra_args: (:), body) = {
   let n_column_detector = body.find(
     (c)=> ("easytable.set_layout", "easytable.push_row", "easytable.set_column").contains(c._kind),
   )
@@ -96,5 +94,5 @@
   }
 
   body = decoration(body)
-  _easytable_processor(n_columns, columns, body, tablex_extra_args: tablex_extra_args)
+  _easytable_processor(n_columns, columns, body, grid_extra_args: grid_extra_args)
 }

@@ -10,7 +10,7 @@
 /// Sets column style.
 #let cstyle(..columns) = {
   let layout_func = columns.pos().map((e) => {
-    if type(e) == "alignment" {
+    if type(e) == alignment {
       return _content => align(e, _content)
     } else {
       return e
@@ -58,4 +58,4 @@
   trans_by_idx: trans_by_idx,
   cell_style: cell_style,
   ..columns,
-), ..hline(stroke: 0.5pt, expand: -2pt),)
+), ..hline(stroke: 0.5pt),)

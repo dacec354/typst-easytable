@@ -5,7 +5,7 @@ A Typst library for writing simple tables.
 ## Usage
 
 ```typst
-#import "@preview/easytable:0.1.0": easytable, elem
+#import "@preview/easytable:0.2.0": easytable, elem
 #import elem: *
 ```
 
